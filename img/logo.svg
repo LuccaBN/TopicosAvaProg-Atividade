@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Rota Livre">
+  <circle cx="32" cy="32" r="30" fill="#ffc107"/>
+  <path d="M10 44 Q32 52 54 36" fill="none" stroke="#0d6efd" stroke-width="3" stroke-dasharray="4 4" stroke-linecap="round"/>
+  <g transform="translate(32 28) rotate(-30)" fill="#0d6efd">
+    <path d="M-18 -2 L14 -3 Q20 0 14 3 L-18 2 Z"/>
+    <path d="M-2 -2 L-10 -16 L-5 -16 L8 -2 Z"/>
+    <path d="M-2 2 L-10 16 L-5 16 L8 2 Z"/>
+    <path d="M-17 -1 L-21 -8 L-18 -8 L-12 -1 Z"/>
+    <path d="M-17 1 L-21 8 L-18 8 L-12 1 Z"/>
+  </g>
+</svg>

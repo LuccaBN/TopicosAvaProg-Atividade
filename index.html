@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rota Livre Viagens - pacotes nacionais e internacionais">
+  <title>Rota Livre Viagens</title>
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+
+  <!-- Bootstrap 5 (arquivos baixados na pasta vendor/) -->
+  <link href="vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <!-- Ícones do Bootstrap -->
+  <link href="vendor/bootstrap-icons/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Estilos próprios (apenas ajustes pequenos) -->
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Link para pular direto ao conteúdo (acessibilidade para teclado/leitores de tela) -->
+  <a href="#conteudo" class="visually-hidden-focusable btn btn-warning position-absolute m-2">Pular para o conteúdo</a>
+
+  <!-- ========== HEADER + NAVBAR ========== -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow-sm" aria-label="Menu principal">
+      <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#inicio">
+          <img src="img/logo.svg" alt="" width="36" height="36"> Rota Livre
+        </a>
+
+        <!-- Botão hambúrguer (aparece em telas menores que lg) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal"
+                aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menu de navegação">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menuPrincipal">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#inicio">Início</a></li>
+            <li class="nav-item"><a class="nav-link" href="#destinos">Destinos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#pacotes">Pacotes</a></li>
+            <li class="nav-item"><a class="nav-link" href="#reserva">Reserva</a></li>
+          </ul>
+          <a href="#reserva" class="btn btn-warning ms-lg-3 fw-semibold">Reserve já</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- ========== CARROSSEL ========== -->
+    <section id="inicio" aria-label="Destinos em destaque">
+      <div id="carrosselDestaques" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+
+        <!-- Indicadores (dots) -->
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carrosselDestaques" data-bs-slide-to="0" class="active"
+                  aria-current="true" aria-label="Slide 1: Rio de Janeiro"></button>
+          <button type="button" data-bs-target="#carrosselDestaques" data-bs-slide-to="1"
+                  aria-label="Slide 2: Paris"></button>
+          <button type="button" data-bs-target="#carrosselDestaques" data-bs-slide-to="2"
+                  aria-label="Slide 3: Tóquio"></button>
+        </div>
+
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="img/rio-de-janeiro.svg" class="d-block w-100 carousel-img"
+                 alt="Ilustração do Rio de Janeiro com o Cristo Redentor, morros e o mar">
+            <div class="carousel-caption">
+              <h1 class="display-5 fw-bold">Rio de Janeiro</h1>
+              <p class="lead d-none d-sm-block">Praias, samba e o Cristo Redentor esperando por você.</p>
+              <a href="#destinos" class="btn btn-warning">Ver destinos</a>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="img/paris.svg" class="d-block w-100 carousel-img"
+                 alt="Ilustração de Paris com a Torre Eiffel ao entardecer">
+            <div class="carousel-caption">
+              <p class="display-5 fw-bold mb-2">Paris</p>
+              <p class="lead d-none d-sm-block">Arte, gastronomia e a Torre Eiffel iluminada.</p>
+              <a href="#pacotes" class="btn btn-warning">Ver pacotes</a>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="img/toquio.svg" class="d-block w-100 carousel-img"
+                 alt="Ilustração de Tóquio à noite com a Tokyo Tower e o Monte Fuji">
+            <div class="carousel-caption">
+              <p class="display-5 fw-bold mb-2">Tóquio</p>
+              <p class="lead d-none d-sm-block">Tradição e tecnologia no mesmo roteiro.</p>
+              <a href="#reserva" class="btn btn-warning">Reservar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botões anterior / próximo -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carrosselDestaques" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carrosselDestaques" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Próximo</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ========== CARDS (DESTINOS) ========== -->
+    <section id="destinos" class="py-5" aria-labelledby="titulo-destinos">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 id="titulo-destinos" class="fw-bold">Destinos populares</h2>
+          <p class="text-body-secondary">Escolha seu próximo destino e clique em “Detalhes” para saber mais.</p>
+        </div>
+
+        <!-- 1 coluna no celular, 2 no tablet, 3 no desktop -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+          <div class="col">
+            <article class="card h-100 shadow-sm">
+              <img src="img/salvador.svg" class="card-img-top" alt="Ilustração do casario colorido do Pelourinho">
+              <div class="card-body">
+                <span class="badge text-bg-success mb-2">Nacional</span>
+                <h3 class="card-title h5">Salvador, BA</h3>
+                <p class="card-text">Pelourinho, culinária baiana e praias de águas mornas o ano todo.</p>
+              </div>
+              <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-primary">a partir de R$ 1.290</span>
+                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDetalhes"
+                        data-destino="Salvador, BA" data-duracao="5 dias / 4 noites" data-preco="R$ 1.290"
+                        data-descricao="Passeio guiado pelo Pelourinho, visita ao Elevador Lacerda, dia de praia em Itapuã e jantar com moqueca típica.">
+                  Detalhes
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <div class="col">
+            <article class="card h-100 shadow-sm">
+              <img src="img/gramado.svg" class="card-img-top" alt="Ilustração da serra gaúcha com pinheiros">
+              <div class="card-body">
+                <span class="badge text-bg-success mb-2">Nacional</span>
+                <h3 class="card-title h5">Gramado, RS</h3>
+                <p class="card-text">Clima de montanha, chocolate artesanal e arquitetura europeia.</p>
+              </div>
+              <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-primary">a partir de R$ 1.590</span>
+                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDetalhes"
+                        data-destino="Gramado, RS" data-duracao="4 dias / 3 noites" data-preco="R$ 1.590"
+                        data-descricao="Tour por Gramado e Canela, Lago Negro, fondue na serra e visita a fábrica de chocolate.">
+                  Detalhes
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <div class="col">
+            <article class="card h-100 shadow-sm">
+              <img src="img/fernando-de-noronha.svg" class="card-img-top" alt="Ilustração do Morro Dois Irmãos no mar azul">
+              <div class="card-body">
+                <span class="badge text-bg-success mb-2">Nacional</span>
+                <h3 class="card-title h5">Fernando de Noronha, PE</h3>
+                <p class="card-text">Mergulho, golfinhos e algumas das praias mais bonitas do mundo.</p>
+              </div>
+              <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-primary">a partir de R$ 3.890</span>
+                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDetalhes"
+                        data-destino="Fernando de Noronha, PE" data-duracao="6 dias / 5 noites" data-preco="R$ 3.890"
+                        data-descricao="Ilha tour, mergulho de batismo na Baía do Sancho, passeio de barco para ver golfinhos e pôr do sol no Forte.">
+                  Detalhes
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <div class="col">
+            <article class="card h-100 shadow-sm">
+              <img src="img/lisboa.svg" class="card-img-top" alt="Ilustração de bonde amarelo em ladeira de Lisboa">
+              <div class="card-body">
+                <span class="badge text-bg-info mb-2">Internacional</span>
+                <h3 class="card-title h5">Lisboa, Portugal</h3>
+                <p class="card-text">Bondinhos, pastéis de nata e mirantes sobre o rio Tejo.</p>
+              </div>
+              <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-primary">a partir de R$ 5.490</span>
+                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDetalhes"
+                        data-destino="Lisboa, Portugal" data-duracao="7 dias / 6 noites" data-preco="R$ 5.490"
+                        data-descricao="Aéreo incluso, hotel no centro, passeio por Alfama e Belém e bate-volta a Sintra.">
+                  Detalhes
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <div class="col">
+            <article class="card h-100 shadow-sm">
+              <img src="img/buenos-aires.svg" class="card-img-top" alt="Ilustração do Obelisco de Buenos Aires">
+              <div class="card-body">
+                <span class="badge text-bg-info mb-2">Internacional</span>
+                <h3 class="card-title h5">Buenos Aires, Argentina</h3>
+                <p class="card-text">Tango, parrilla e bairros cheios de história.</p>
+              </div>
+              <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-primary">a partir de R$ 2.790</span>
+                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDetalhes"
+                        data-destino="Buenos Aires, Argentina" data-duracao="5 dias / 4 noites" data-preco="R$ 2.790"
+                        data-descricao="City tour por La Boca e San Telmo, show de tango com jantar e passeio pelo Delta do Tigre.">
+                  Detalhes
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <div class="col">
+            <article class="card h-100 shadow-sm">
+              <img src="img/cancun.svg" class="card-img-top" alt="Ilustração de praia caribenha com palmeiras">
+              <div class="card-body">
+                <span class="badge text-bg-info mb-2">Internacional</span>
+                <h3 class="card-title h5">Cancún, México</h3>
+                <p class="card-text">Resorts all inclusive, mar do Caribe e ruínas maias.</p>
+              </div>
+              <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-primary">a partir de R$ 6.190</span>
+                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDetalhes"
+                        data-destino="Cancún, México" data-duracao="7 dias / 6 noites" data-preco="R$ 6.190"
+                        data-descricao="Resort all inclusive, passeio a Chichén Itzá, Isla Mujeres de catamarã e mergulho em cenote.">
+                  Detalhes
+                </button>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TABELA (PACOTES) ========== -->
+    <section id="pacotes" class="py-5 bg-body-tertiary" aria-labelledby="titulo-pacotes">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 id="titulo-pacotes" class="fw-bold">Próximas saídas</h2>
+          <p class="text-body-secondary">Confira datas, duração e vagas dos nossos pacotes.</p>
+        </div>
+
+        <!-- table-responsive gera scroll horizontal em telas pequenas -->
+        <div class="table-responsive shadow-sm rounded">
+          <table class="table table-striped table-hover align-middle mb-0">
+            <caption class="px-3">Valores por pessoa, em quarto duplo. Sujeitos à disponibilidade.</caption>
+            <thead class="table-primary">
+              <tr>
+                <th scope="col">Destino</th>
+                <th scope="col">Saída</th>
+                <th scope="col">Duração</th>
+                <th scope="col">Transporte</th>
+                <th scope="col">Vagas</th>
+                <th scope="col" class="text-end">Preço</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Salvador, BA</th>
+                <td>12/12/2026</td>
+                <td>5 dias</td>
+                <td><i class="bi bi-airplane" aria-hidden="true"></i> Aéreo</td>
+                <td><span class="badge text-bg-success">18</span></td>
+                <td class="text-end">R$ 1.290</td>
+              </tr>
+              <tr>
+                <th scope="row">Gramado, RS</th>
+                <td>18/12/2026</td>
+                <td>4 dias</td>
+                <td><i class="bi bi-airplane" aria-hidden="true"></i> Aéreo</td>
+                <td><span class="badge text-bg-warning">6</span></td>
+                <td class="text-end">R$ 1.590</td>
+              </tr>
+              <tr>
+                <th scope="row">Fernando de Noronha, PE</th>
+                <td>08/01/2027</td>
+                <td>6 dias</td>
+                <td><i class="bi bi-airplane" aria-hidden="true"></i> Aéreo</td>
+                <td><span class="badge text-bg-danger">2</span></td>
+                <td class="text-end">R$ 3.890</td>
+              </tr>
+              <tr>
+                <th scope="row">Buenos Aires, Argentina</th>
+                <td>15/01/2027</td>
+                <td>5 dias</td>
+                <td><i class="bi bi-airplane" aria-hidden="true"></i> Aéreo</td>
+                <td><span class="badge text-bg-success">22</span></td>
+                <td class="text-end">R$ 2.790</td>
+              </tr>
+              <tr>
+                <th scope="row">Lisboa, Portugal</th>
+                <td>02/02/2027</td>
+                <td>7 dias</td>
+                <td><i class="bi bi-airplane" aria-hidden="true"></i> Aéreo</td>
+                <td><span class="badge text-bg-warning">9</span></td>
+                <td class="text-end">R$ 5.490</td>
+              </tr>
+              <tr>
+                <th scope="row">Cancún, México</th>
+                <td>20/02/2027</td>
+                <td>7 dias</td>
+                <td><i class="bi bi-airplane" aria-hidden="true"></i> Aéreo</td>
+                <td><span class="badge text-bg-success">14</span></td>
+                <td class="text-end">R$ 6.190</td>
+              </tr>
+              <tr>
+                <th scope="row">Chapada Diamantina, BA</th>
+                <td>05/03/2027</td>
+                <td>4 dias</td>
+                <td><i class="bi bi-bus-front" aria-hidden="true"></i> Rodoviário</td>
+                <td><span class="badge text-bg-success">25</span></td>
+                <td class="text-end">R$ 990</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FORMULÁRIO (RESERVA) ========== -->
+    <section id="reserva" class="py-5" aria-labelledby="titulo-reserva">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="text-center mb-4">
+              <h2 id="titulo-reserva" class="fw-bold">Solicite sua reserva</h2>
+              <p class="text-body-secondary">Preencha os dados e um consultor entrará em contato.</p>
+            </div>
+
+            <!-- novalidate: desliga os balões padrão do navegador para usar o estilo do Bootstrap,
+                 mas a validação continua sendo a do HTML5 (required, type, minlength...) -->
+            <form id="formReserva" class="card card-body shadow-sm needs-validation" novalidate>
+              <div class="row g-3">
+
+                <div class="col-md-6">
+                  <label for="nome" class="form-label">Nome completo</label>
+                  <input type="text" class="form-control" id="nome" name="nome" required minlength="3" autocomplete="name">
+                  <div class="invalid-feedback">Informe seu nome (mínimo 3 letras).</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="email" class="form-label">E-mail</label>
+                  <input type="email" class="form-control" id="email" name="email" required autocomplete="email"
+                         placeholder="voce@exemplo.com">
+                  <div class="invalid-feedback">Informe um e-mail válido.</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="telefone" class="form-label">Telefone</label>
+                  <input type="tel" class="form-control" id="telefone" name="telefone" required autocomplete="tel"
+                         pattern="\(?\d{2}\)?\s?\d{4,5}-?\d{4}" placeholder="(71) 99999-9999" aria-describedby="ajudaTelefone">
+                  <div id="ajudaTelefone" class="form-text">Com DDD.</div>
+                  <div class="invalid-feedback">Informe um telefone com DDD.</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="destino" class="form-label">Destino</label>
+                  <select class="form-select" id="destino" name="destino" required>
+                    <option value="" selected disabled>Escolha...</option>
+                    <option>Salvador, BA</option>
+                    <option>Gramado, RS</option>
+                    <option>Fernando de Noronha, PE</option>
+                    <option>Buenos Aires, Argentina</option>
+                    <option>Lisboa, Portugal</option>
+                    <option>Cancún, México</option>
+                    <option>Chapada Diamantina, BA</option>
+                  </select>
+                  <div class="invalid-feedback">Escolha um destino.</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="dataIda" class="form-label">Data de ida</label>
+                  <input type="date" class="form-control" id="dataIda" name="dataIda" required>
+                  <div class="invalid-feedback">Escolha uma data a partir de hoje.</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="pessoas" class="form-label">Número de viajantes</label>
+                  <input type="number" class="form-control" id="pessoas" name="pessoas" min="1" max="10" value="2" required>
+                  <div class="invalid-feedback">De 1 a 10 viajantes.</div>
+                </div>
+
+                <div class="col-12">
+                  <label for="mensagem" class="form-label">Observações</label>
+                  <textarea class="form-control" id="mensagem" name="mensagem" rows="4" maxlength="500"
+                            placeholder="Ex.: preferência de hotel, necessidades de acessibilidade..."></textarea>
+                </div>
+
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="termos" name="termos" required>
+                    <label class="form-check-label" for="termos">Concordo com os termos e a política de privacidade</label>
+                    <div class="invalid-feedback">Você precisa aceitar os termos.</div>
+                  </div>
+                </div>
+
+                <div class="col-12 d-grid d-sm-flex justify-content-sm-end gap-2">
+                  <button type="reset" class="btn btn-outline-secondary">Limpar</button>
+                  <button type="submit" class="btn btn-primary px-4">Enviar solicitação</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-dark text-light pt-5 pb-3">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <h2 class="h5 d-flex align-items-center gap-2"><img src="img/logo.svg" alt="" width="32" height="32"> Rota Livre Viagens</h2>
+          <p class="text-secondary small mb-0">Agência fictícia criada para a atividade de Bootstrap — UCSal.</p>
+        </div>
+        <nav class="col-6 col-md-4" aria-label="Links do rodapé">
+          <h2 class="h6 text-uppercase">Navegação</h2>
+          <ul class="list-unstyled small">
+            <li><a href="#inicio" class="link-light link-underline-opacity-0">Início</a></li>
+            <li><a href="#destinos" class="link-light link-underline-opacity-0">Destinos</a></li>
+            <li><a href="#pacotes" class="link-light link-underline-opacity-0">Pacotes</a></li>
+            <li><a href="#reserva" class="link-light link-underline-opacity-0">Reserva</a></li>
+          </ul>
+        </nav>
+        <div class="col-6 col-md-4">
+          <h2 class="h6 text-uppercase">Contato</h2>
+          <address class="small mb-0">
+            <i class="bi bi-geo-alt" aria-hidden="true"></i> Salvador, BA<br>
+            <i class="bi bi-telephone" aria-hidden="true"></i> (71) 3000-0000<br>
+            <i class="bi bi-envelope" aria-hidden="true"></i> contato@rotalivre.exemplo
+          </address>
+        </div>
+      </div>
+      <hr class="border-secondary">
+      <p class="text-center text-secondary small mb-0">&copy; 2026 Rota Livre Viagens. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- ========== MODAL 1: DETALHES DO DESTINO ========== -->
+  <!-- O conteúdo é preenchido via JS com os data-* do botão clicado -->
+  <div class="modal fade" id="modalDetalhes" tabindex="-1" aria-labelledby="modalDetalhesTitulo" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="modalDetalhesTitulo">Destino</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <p id="modalDetalhesDescricao"></p>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Duração</span><strong id="modalDetalhesDuracao"></strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>A partir de</span><strong id="modalDetalhesPreco" class="text-primary"></strong>
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary" id="btnQueroEsse">Quero esse!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MODAL 2: CONFIRMAÇÃO DA RESERVA ========== -->
+  <div class="modal fade" id="modalConfirmacao" tabindex="-1" aria-labelledby="modalConfirmacaoTitulo" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h2 class="modal-title h5" id="modalConfirmacaoTitulo">
+            <i class="bi bi-check-circle-fill me-1" aria-hidden="true"></i> Solicitação enviada!
+          </h2>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <p id="modalConfirmacaoTexto" class="mb-0"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS (inclui Popper) -->
+  <script src="vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

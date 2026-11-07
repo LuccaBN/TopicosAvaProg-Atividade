@@ -1,0 +1,63 @@
+/* Ajustes pequenos — o layout e a responsividade vêm do Bootstrap */
+
+/* Compensa a navbar fixa ao clicar nos links do menu */
+html {
+  scroll-padding-top: 70px;
+}
+
+body {
+  padding-top: 56px; /* altura da navbar fixa */
+}
+
+/* Altura do carrossel muda conforme o tamanho da tela */
+.carousel-img {
+  height: 320px;
+  object-fit: cover;
+  filter: brightness(0.85); /* escurece um pouco a imagem para o texto ficar legível */
+}
+
+@media (min-width: 768px) {
+  .carousel-img {
+    height: 480px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .carousel-img {
+    height: 600px;
+  }
+}
+
+.carousel-caption {
+  bottom: 15%;
+}
+
+/* Imagens dos cards com a mesma altura */
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Leve efeito ao passar o mouse nos cards */
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Respeita quem prefere menos animação */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card:hover {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* Sombra no texto do carrossel para manter a leitura sobre qualquer imagem */
+.carousel-caption {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
