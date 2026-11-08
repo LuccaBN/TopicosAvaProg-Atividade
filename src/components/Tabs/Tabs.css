@@ -1,0 +1,50 @@
+/* Abas em formato de "pílula" (controle segmentado) */
+.tabs__lista {
+  display: flex;
+  gap: 0.25rem;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  overflow-x: auto; /* no celular as abas rolam para o lado */
+  scrollbar-width: none;
+}
+
+.tabs__aba {
+  flex-shrink: 0;
+  padding: 0.5rem 1.1rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.tabs__aba:hover {
+  color: var(--cor-primaria);
+}
+
+.tabs__aba--ativa,
+.tabs__aba--ativa:hover {
+  background: var(--cor-primaria);
+  color: #fff;
+}
+
+.tabs__painel {
+  padding-top: 1.25rem;
+  animation: tabs-aparecer 0.25s ease;
+}
+
+.tabs__painel p {
+  margin-top: 0;
+}
+
+@keyframes tabs-aparecer {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}

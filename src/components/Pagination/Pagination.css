@@ -1,0 +1,55 @@
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.pagination__lista {
+  display: flex;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pagination__botao {
+  min-width: 2.6rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 999px;
+  background: var(--cor-superficie);
+  color: var(--cor-primaria);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.pagination__botao:hover:not(:disabled) {
+  background: var(--cor-primaria-clara);
+}
+
+.pagination__botao:disabled {
+  color: var(--cor-texto-suave);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination__numero--atual,
+.pagination__numero--atual:hover:not(:disabled) {
+  background: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+  color: #fff;
+}
+
+/* No celular os botões de texto ocupam a linha toda abaixo dos números */
+@media (max-width: 480px) {
+  .pagination__lista {
+    order: -1;
+    width: 100%;
+    justify-content: center;
+  }
+}

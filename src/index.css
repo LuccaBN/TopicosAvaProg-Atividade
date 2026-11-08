@@ -1,0 +1,61 @@
+/* Variáveis e estilos base: verde-água + coral sobre fundo areia */
+:root {
+  --cor-primaria: #0f766e;
+  --cor-primaria-escura: #115e59;
+  --cor-primaria-media: #5eead4;
+  --cor-primaria-clara: #ccfbf1;
+  --cor-destaque: #f97316;
+  --cor-destaque-escura: #ea580c;
+  --cor-sucesso: #15803d;
+  --cor-erro: #dc2626;
+  --cor-texto: #1c2b2a;
+  --cor-texto-suave: #5f6f6d;
+  --cor-fundo: #fdf8f3;
+  --cor-areia: #f6ede3;
+  --cor-superficie: #ffffff;
+  --cor-borda: #ece3d9;
+  --raio: 14px;
+  --sombra: 0 12px 30px rgba(28, 43, 42, 0.12);
+  font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+  line-height: 1.55;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* compensa o cabeçalho fixo */
+}
+
+body {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* Contorno visível para quem navega pelo teclado */
+:focus-visible {
+  outline: 3px solid var(--cor-destaque);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
