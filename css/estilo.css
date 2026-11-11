@@ -1,0 +1,1163 @@
+/* ==========================================================
+   Central do Viajante — Rota Livre (AngularJS)
+   CSS puro, mobile first: começa no celular e cresce.
+   ========================================================== */
+
+/* Esconde as {{ }} até o AngularJS terminar de carregar */
+[ng-cloak] { display: none !important; }
+.ng-hide:not(.ng-hide-animate) { display: none !important; } /* usado por ng-show / ng-hide */
+
+/* ---------- Variáveis do tema: azul-marinho + dourado ---------- */
+:root {
+  --cor-primaria: #1d4e89;
+  --cor-primaria-escura: #12355f;
+  --cor-primaria-media: #93c5fd;
+  --cor-primaria-clara: #e3edf9;
+  --cor-destaque: #d99a06;
+  --cor-destaque-escura: #b47f00;
+  --cor-sucesso: #15803d;
+  --cor-erro: #c62828;
+  --cor-texto: #0f1f33;
+  --cor-texto-suave: #5b6b80;
+  --cor-fundo: #eef2f7;
+  --cor-superficie: #ffffff;
+  --cor-borda: #dce3ed;
+  --cor-marinho: #0c2340;
+  --raio: 12px;
+  --sombra: 0 10px 28px rgba(12, 35, 64, 0.12);
+  --sombra-leve: 0 2px 8px rgba(12, 35, 64, 0.06);
+  --fonte-titulo: Georgia, 'Times New Roman', serif;
+  --largura-lateral: 250px;
+  font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+  line-height: 1.55;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 1rem; }
+body { margin: 0; }
+img { max-width: 100%; }
+
+h1, h2, h3 {
+  margin: 0;
+  line-height: 1.2;
+  font-family: var(--fonte-titulo);
+}
+
+:focus-visible {
+  outline: 3px solid var(--cor-destaque);
+  outline-offset: 2px;
+}
+
+.texto-suave { color: var(--cor-texto-suave); }
+.texto-pequeno { font-size: 0.9rem; }
+.texto-erro { color: var(--cor-erro) !important; font-weight: 600; }
+
+.sobretitulo {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cor-destaque);
+}
+
+.pular-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 300;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: var(--cor-destaque);
+  color: var(--cor-marinho);
+  font-weight: 600;
+}
+
+.pular-link:focus { top: 1rem; }
+
+/* ---------- Botões e selos ---------- */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, opacity 0.2s, transform 0.1s;
+}
+
+.botao:active:not(:disabled) { transform: scale(0.97); }
+.botao:disabled { opacity: 0.55; cursor: not-allowed; }
+.botao--pequeno { padding: 0.4rem 0.8rem; font-size: 0.88rem; }
+
+.botao--primario { background: var(--cor-primaria); color: #fff; }
+.botao--primario:hover:not(:disabled) { background: var(--cor-primaria-escura); }
+
+.botao--destaque { background: var(--cor-destaque); color: var(--cor-marinho); }
+.botao--destaque:hover:not(:disabled) { background: #f0b31a; }
+
+.botao--suave { background: var(--cor-primaria-clara); color: var(--cor-primaria-escura); }
+.botao--suave:hover:not(:disabled) { background: #cddcf0; }
+
+.botao--contorno { border-color: var(--cor-primaria); background: none; color: var(--cor-primaria); }
+.botao--contorno:hover { background: var(--cor-primaria); color: #fff; }
+
+.selo {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.selo--nacional { background: #dcfce7; color: var(--cor-sucesso); }
+.selo--internacional { background: #fef3c7; color: var(--cor-destaque-escura); }
+
+/* ==========================================================
+   ESTRUTURA: menu lateral + área principal
+   ========================================================== */
+.app {
+  min-height: 100vh;
+}
+
+/* No celular, o menu lateral vira uma barra no topo */
+.lateral {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--cor-marinho);
+  color: #fff;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.25rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.logo strong { color: var(--cor-destaque); }
+
+.lateral__nav {
+  order: 3;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.lateral__nav ul {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lateral__nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.lateral__nav a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.lateral__nav a span {
+  width: 1.2rem;
+  text-align: center;
+  color: var(--cor-destaque);
+}
+
+.lateral .dropdown__botao {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.lateral .dropdown__rotulo { color: rgba(255, 255, 255, 0.65); }
+
+.principal {
+  width: min(1180px, 100%);
+  margin-inline: auto;
+  padding: 1.5rem 1rem 0;
+}
+
+/* Desktop: menu lateral fixo à esquerda */
+@media (min-width: 992px) {
+  .app {
+    display: grid;
+    grid-template-columns: var(--largura-lateral) minmax(0, 1fr);
+  }
+
+  .lateral {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 2rem;
+    padding: 1.75rem 1.25rem;
+  }
+
+  .lateral__nav { order: 0; overflow: visible; }
+  .lateral__nav ul { flex-direction: column; }
+  .lateral__nav a { padding: 0.7rem 0.9rem; }
+
+  .lateral__idioma { margin-top: auto; }
+  .lateral__idioma .dropdown,
+  .lateral__idioma .dropdown__botao { width: 100%; }
+
+  /* no menu lateral, a lista do idioma abre para cima */
+  .lateral__idioma .dropdown__lista { top: auto; bottom: calc(100% + 0.35rem); }
+
+  .principal { padding: 2rem 2.5rem 0; }
+}
+
+/* ---------- Topo: saudação + busca ---------- */
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.topo h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); }
+.topo p { margin: 0.25rem 0 0; }
+
+.busca {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 100%;
+  max-width: 360px;
+}
+
+.busca label,
+.reserva__viajantes label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+}
+
+.busca input,
+.reserva__viajantes input {
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  background: var(--cor-superficie);
+  font: inherit;
+  color: var(--cor-texto);
+}
+
+.busca input:focus,
+.reserva__viajantes input:focus {
+  border-color: var(--cor-primaria);
+  outline: 3px solid var(--cor-primaria-clara);
+}
+
+/* ---------- Destino em destaque ---------- */
+.destaque {
+  display: grid;
+  background: var(--cor-superficie);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+}
+
+.destaque__banner {
+  position: relative;
+  min-height: 240px;
+}
+
+.destaque__banner img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.destaque__legenda {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 3rem 1.5rem 1.25rem;
+  background: linear-gradient(transparent, rgba(12, 35, 64, 0.9));
+  color: #fff;
+}
+
+.destaque__legenda h2 {
+  margin-bottom: 0.4rem;
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+}
+
+.destaque__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+@media (min-width: 1100px) {
+  .destaque { grid-template-columns: 5fr 6fr; }
+  .destaque__banner { min-height: 100%; }
+}
+
+.reserva {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 1rem;
+  margin-top: auto;
+  padding: 1rem;
+  border: 1px dashed var(--cor-destaque);
+  border-radius: 10px;
+  background: #fffbeb;
+}
+
+.reserva__preco strong,
+.reserva__total strong {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-size: 1.3rem;
+  color: var(--cor-primaria-escura);
+}
+
+.reserva__preco span,
+.reserva__total span {
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+}
+
+.reserva__viajantes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.reserva__viajantes input { width: 100%; }
+
+@media (min-width: 640px) {
+  .reserva { grid-template-columns: auto 6rem 1fr auto; }
+  .reserva__total { text-align: right; }
+}
+
+.ficha {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.6rem;
+  margin: 1rem 0 0;
+}
+
+.ficha div {
+  padding: 0.7rem 0.9rem;
+  border-radius: 8px;
+  background: var(--cor-fundo);
+}
+
+.ficha dt { font-size: 0.75rem; color: var(--cor-texto-suave); }
+.ficha dd { margin: 0; font-weight: 700; color: var(--cor-primaria-escura); }
+
+.roteiro {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 2px solid var(--cor-borda);
+}
+
+.roteiro li {
+  position: relative;
+  padding: 0.3rem 0 0.3rem 1.1rem;
+}
+
+.roteiro li::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 0.75rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cor-destaque);
+}
+
+.roteiro__dia {
+  margin-right: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+}
+
+.lista-check { display: grid; gap: 0.35rem; margin: 0; padding: 0; list-style: none; }
+.lista-check li { position: relative; padding-left: 1.6rem; }
+.lista-check li::before { content: '✓'; position: absolute; left: 0; color: var(--cor-sucesso); font-weight: 700; }
+
+.dica {
+  margin: 0;
+  padding: 0.9rem 1.1rem;
+  border-left: 4px solid var(--cor-destaque);
+  border-radius: 8px;
+  background: #fffbeb;
+}
+
+/* ---------- Seções ---------- */
+.secao {
+  padding: 2.5rem 0 0;
+}
+
+.secao > h2,
+.secao__topo h2 {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+}
+
+.secao > p { margin: 0.35rem 0 1.25rem; }
+
+.secao__topo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.secao__topo p { margin: 0.2rem 0 0; }
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ---------- Galeria de destinos: 1, 2 ou 3 colunas ---------- */
+.galeria {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .galeria { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1200px) {
+  .galeria { grid-template-columns: repeat(3, 1fr); }
+}
+
+.cartao-destino {
+  display: flex;
+  flex-direction: column;
+  background: var(--cor-superficie);
+  border: 2px solid transparent;
+  border-radius: var(--raio);
+  box-shadow: var(--sombra-leve);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cartao-destino:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra);
+}
+
+.cartao-destino--destaque { border-color: var(--cor-destaque); }
+
+.cartao-destino__imagem { position: relative; }
+
+.cartao-destino__imagem img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.cartao-destino__preco {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  background: var(--cor-marinho);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.cartao-destino__marca {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  background: var(--cor-destaque);
+  color: var(--cor-marinho);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.cartao-destino__corpo {
+  flex: 1;
+  padding: 1rem 1.1rem 0.25rem;
+}
+
+.cartao-destino__corpo h3 {
+  margin: 0.5rem 0 0.3rem;
+  font-size: 1.15rem;
+}
+
+.cartao-destino__corpo p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--cor-texto-suave);
+}
+
+.cartao-destino__rodape {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.1rem 1.1rem;
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+
+.lista-vazia {
+  padding: 2rem;
+  border: 1px dashed var(--cor-borda);
+  border-radius: var(--raio);
+  text-align: center;
+  color: var(--cor-texto-suave);
+}
+
+/* ---------- Minha viagem ---------- */
+.grade-viagem {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+@media (min-width: 900px) {
+  .grade-viagem { grid-template-columns: 2fr 3fr; align-items: start; }
+}
+
+.painel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.4rem;
+  background: var(--cor-superficie);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra-leve);
+}
+
+.painel h3 { font-size: 1.15rem; }
+.painel p { margin: 0; }
+
+.painel__topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.checklist { display: grid; gap: 0.45rem; margin: 0; padding: 0; list-style: none; }
+
+.checklist label {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  background: var(--cor-fundo);
+  cursor: pointer;
+}
+
+.checklist input { width: 1.1rem; height: 1.1rem; accent-color: var(--cor-primaria); }
+.checklist input:checked + span { color: var(--cor-texto-suave); text-decoration: line-through; }
+
+.documentos { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+
+.documento {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 10px;
+}
+
+.documento > .botao { grid-column: 1 / -1; justify-self: end; }
+
+@media (min-width: 640px) {
+  .documento { grid-template-columns: auto 1fr auto; }
+  .documento > .botao { grid-column: auto; }
+}
+
+.documento__icone {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 8px;
+  background: var(--cor-primaria-clara);
+  color: var(--cor-primaria);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.documento__nome { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.6rem; margin-bottom: 0.25rem; }
+.documento__nome small { color: var(--cor-texto-suave); }
+.documento .progress__rotulo { display: none; } /* o nome do arquivo já aparece acima */
+
+/* ---------- Rodapé ---------- */
+.rodape {
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--cor-borda);
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+
+.rodape p { margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===================== DIRETIVA <acordeao> ===================== */
+.accordion {
+  display: grid;
+  gap: 0.6rem;
+}
+
+/* cada pergunta é um cartão separado */
+.accordion__item {
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.accordion__item--aberto {
+  border-color: var(--cor-primaria);
+}
+
+.accordion__cabecalho {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.accordion__botao {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  color: var(--cor-texto);
+  cursor: pointer;
+}
+
+.accordion__botao:hover {
+  background: var(--cor-fundo);
+}
+
+.accordion__item--aberto .accordion__botao {
+  color: var(--cor-primaria);
+}
+
+.accordion__icone {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  background: var(--cor-primaria-clara);
+  color: var(--cor-primaria-escura);
+  font-size: 1.3rem;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.accordion__item--aberto .accordion__icone {
+  transform: rotate(45deg);
+}
+
+/* Transição de altura: grid de 0fr para 1fr anima até a altura real do conteúdo */
+.accordion__painel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.accordion__item--aberto .accordion__painel {
+  grid-template-rows: 1fr;
+}
+
+.accordion__conteudo {
+  overflow: hidden;
+}
+
+.accordion__conteudo p {
+  margin: 0;
+  padding: 0 1.25rem 1.1rem;
+  color: var(--cor-texto-suave);
+}
+
+/* ===================== DIRETIVA <paginacao> ===================== */
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.pagination__lista {
+  display: flex;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pagination__botao {
+  min-width: 2.6rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 999px;
+  background: var(--cor-superficie);
+  color: var(--cor-primaria);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.pagination__botao:hover:not(:disabled) {
+  background: var(--cor-primaria-clara);
+}
+
+.pagination__botao:disabled {
+  color: var(--cor-texto-suave);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination__numero--atual,
+.pagination__numero--atual:hover:not(:disabled) {
+  background: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+  color: #fff;
+}
+
+/* No celular os botões de texto ocupam a linha toda abaixo dos números */
+@media (max-width: 480px) {
+  .pagination__lista {
+    order: -1;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ===================== DIRETIVA <barra-progresso> ===================== */
+.progress__topo {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+}
+
+.progress__rotulo {
+  font-weight: 600;
+}
+
+.progress__valor {
+  font-variant-numeric: tabular-nums;
+  color: var(--cor-texto-suave);
+}
+
+.progress__trilho {
+  height: 1rem;
+  border-radius: 999px;
+  background: #e9ecef;
+  overflow: hidden;
+}
+
+.progress__barra {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--cor-primaria);
+  transition: width 0.35s ease, background 0.35s ease;
+}
+
+.progress__barra--completa {
+  background: var(--cor-sucesso);
+}
+
+/* ===================== DIRETIVA <abas> ===================== */
+/* Abas em formato de "pílula" (controle segmentado) */
+.tabs__lista {
+  display: flex;
+  gap: 0.25rem;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  overflow-x: auto; /* no celular as abas rolam para o lado */
+  scrollbar-width: none;
+}
+
+.tabs__aba {
+  flex-shrink: 0;
+  padding: 0.5rem 1.1rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.tabs__aba:hover {
+  color: var(--cor-primaria);
+}
+
+.tabs__aba--ativa,
+.tabs__aba--ativa:hover {
+  background: var(--cor-primaria);
+  color: #fff;
+}
+
+.tabs__painel {
+  padding-top: 1.25rem;
+  animation: tabs-aparecer 0.25s ease;
+}
+
+.tabs__painel p {
+  margin-top: 0;
+}
+
+@keyframes tabs-aparecer {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ===================== DIRETIVA <menu-suspenso> ===================== */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown__botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 999px;
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  font: inherit;
+  cursor: pointer;
+}
+
+.dropdown__botao:hover {
+  border-color: var(--cor-primaria);
+}
+
+.dropdown__rotulo {
+  color: var(--cor-texto-suave);
+}
+
+.dropdown__seta {
+  transition: transform 0.2s;
+}
+
+.dropdown__seta--aberta {
+  transform: rotate(180deg);
+}
+
+.dropdown__lista {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  z-index: 20;
+  min-width: 100%;
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: 14px;
+  box-shadow: var(--sombra);
+  outline: none;
+  animation: dropdown-abrir 0.15s ease;
+}
+
+.dropdown__lista--esquerda { left: 0; }
+.dropdown__lista--direita { right: 0; }
+
+.dropdown__opcao {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 6px;
+  color: var(--cor-texto);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.dropdown__opcao--focada {
+  background: var(--cor-primaria-clara);
+}
+
+.dropdown__opcao--selecionada {
+  font-weight: 600;
+  color: var(--cor-primaria);
+}
+
+@keyframes dropdown-abrir {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ===================== DIRETIVA <toast-container> ===================== */
+.toast-container {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: min(360px, calc(100vw - 2rem));
+}
+
+.toast {
+  --cor-toast: var(--cor-primaria);
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.9rem 0.9rem 1.1rem;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-left: 5px solid var(--cor-toast);
+  border-radius: 10px;
+  box-shadow: var(--sombra);
+  overflow: hidden;
+  animation: toast-entrar 0.3s ease;
+}
+
+.toast--sucesso { --cor-toast: var(--cor-sucesso); }
+.toast--erro { --cor-toast: var(--cor-erro); }
+.toast--info { --cor-toast: var(--cor-primaria); }
+
+.toast__icone {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  background: var(--cor-toast);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.toast__texto {
+  flex: 1;
+}
+
+.toast__texto p {
+  margin: 0.15rem 0 0;
+  font-size: 0.92rem;
+  color: var(--cor-texto-suave);
+}
+
+.toast__fechar {
+  background: none;
+  border: 0;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--cor-texto-suave);
+  cursor: pointer;
+}
+
+.toast__fechar:hover {
+  color: var(--cor-texto);
+}
+
+/* Barrinha que diminui mostrando quanto tempo falta para sumir */
+.toast__tempo {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: var(--cor-toast);
+  opacity: 0.5;
+  animation: toast-tempo var(--duracao, 4000ms) linear forwards;
+}
+
+/* No celular os toasts ficam centralizados embaixo */
+@media (max-width: 480px) {
+  .toast-container {
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+@keyframes toast-entrar {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes toast-tempo {
+  from { width: 100%; }
+  to { width: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast { animation: none; }
+}
+
+/* ===================== AJUSTES DAS DIRETIVAS NESTE TEMA ===================== */
+
+/* Botões retos */
+.pagination__botao,
+.dropdown__botao { border-radius: 8px; }
+
+/* Abas sublinhadas */
+.tabs__lista {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-bottom: 2px solid var(--cor-borda);
+  border-radius: 0;
+  background: none;
+}
+
+.tabs__aba {
+  margin-bottom: -2px;
+  border-radius: 0;
+  border-bottom: 3px solid transparent;
+}
+
+.tabs__aba--ativa,
+.tabs__aba--ativa:hover {
+  background: none;
+  color: var(--cor-primaria);
+  border-bottom-color: var(--cor-destaque);
+}
+
+/* Acordeão em um bloco único com divisórias */
+.accordion {
+  gap: 0;
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra-leve);
+  overflow: hidden;
+}
+
+.accordion__item { border: 0; border-radius: 0; }
+.accordion__item + .accordion__item { border-top: 1px solid var(--cor-borda); }
+.accordion__item--aberto { box-shadow: inset 4px 0 0 var(--cor-destaque); }
+
+/* Barra de progresso listrada */
+.progress__barra {
+  background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.18) 0 8px, transparent 8px 16px);
+  background-color: var(--cor-primaria);
+}
+
+.progress__barra--completa { background-color: var(--cor-sucesso); }
+
+/* Toasts no topo da tela, centralizados */
+.toast-container {
+  top: 1rem;
+  bottom: auto;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+@media (min-width: 992px) {
+  /* centraliza na área principal (descontando o menu lateral) */
+  .toast-container { right: calc((100% - var(--largura-lateral)) / 2); }
+}
+
+/* Como os toasts ficam no topo, eles entram descendo */
+@keyframes toast-entrar {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ===================== AJUSTES FINOS ===================== */
+
+/* Botão do idioma no menu lateral numa linha só */
+.lateral .dropdown__botao {
+  justify-content: space-between;
+  white-space: nowrap;
+}
+
+/* Legenda do destaque mais legível sobre qualquer imagem */
+.destaque__legenda {
+  padding-top: 5rem;
+  background: linear-gradient(rgba(12, 35, 64, 0), rgba(12, 35, 64, 0.75) 45%, rgba(12, 35, 64, 0.95));
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.destaque__legenda .selo { text-shadow: none; }
+
+/* Nos documentos, o percentual fica à direita da barra */
+.documento .progress__topo { justify-content: flex-end; margin-bottom: 0.2rem; }
