@@ -1,0 +1,34 @@
+/* Componente <barra-progresso> */
+
+.barra-progresso__topo {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+}
+
+.barra-progresso__rotulo { font-weight: 600; }
+
+.barra-progresso__valor {
+  font-variant-numeric: tabular-nums;
+  color: var(--cor-texto-suave);
+}
+
+.barra-progresso__trilho {
+  height: 1rem;
+  border-radius: 999px;
+  background: #e5eaf1;
+  overflow: hidden;
+}
+
+/* barra listrada */
+.barra-progresso__barra {
+  height: 100%;
+  border-radius: inherit;
+  background-color: var(--cor-primaria);
+  background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.18) 0 8px, transparent 8px 16px);
+  transition: width 0.35s ease, background-color 0.35s ease;
+}
+
+.barra-progresso__barra--completa { background-color: var(--cor-sucesso); }

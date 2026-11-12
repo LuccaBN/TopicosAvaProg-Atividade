@@ -1,0 +1,6 @@
+/* Seção <ajuda> — perguntas frequentes */
+
+.ajuda > p {
+  max-width: 60ch;
+  margin: 0.35rem 0 1.25rem;
+}

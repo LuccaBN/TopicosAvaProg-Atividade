@@ -1,0 +1,113 @@
+/* Seção <explorar> — galeria de destinos */
+
+.explorar__filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* 1 coluna no celular, 2 no tablet, 3 no desktop */
+.explorar__galeria {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .explorar__galeria { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1200px) {
+  .explorar__galeria { grid-template-columns: repeat(3, 1fr); }
+}
+
+.explorar__vazio {
+  padding: 2rem;
+  border: 1px dashed var(--cor-borda);
+  border-radius: var(--raio);
+  text-align: center;
+  color: var(--cor-texto-suave);
+}
+
+/* ---------- Cartão de destino ---------- */
+.cartao-destino {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid transparent;
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra-leve);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cartao-destino:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra);
+}
+
+.cartao-destino--destaque { border-color: var(--cor-destaque); }
+
+.cartao-destino__imagem { position: relative; }
+
+.cartao-destino__imagem img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.cartao-destino__preco {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  background: var(--cor-marinho);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.cartao-destino__marca {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  background: var(--cor-destaque);
+  color: var(--cor-marinho);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.cartao-destino__corpo {
+  flex: 1;
+  padding: 1rem 1.1rem 0.25rem;
+}
+
+.cartao-destino__corpo h3 {
+  margin: 0.5rem 0 0.3rem;
+  font-size: 1.15rem;
+}
+
+.cartao-destino__corpo p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--cor-texto-suave);
+}
+
+.cartao-destino__rodape {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.1rem 1.1rem;
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cartao-destino,
+  .cartao-destino:hover { transition: none; transform: none; }
+}

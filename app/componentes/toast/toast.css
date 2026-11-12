@@ -1,0 +1,93 @@
+/* Componente <toast-container> — notificações no topo da tela, centralizadas */
+
+.toasts {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: min(380px, calc(100vw - 2rem));
+  transform: translateX(-50%);
+}
+
+/* No desktop, centraliza na área principal (descontando o menu lateral) */
+@media (min-width: 992px) {
+  .toasts { left: calc(50% + var(--largura-lateral) / 2); }
+}
+
+.toast {
+  --cor-toast: var(--cor-primaria);
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.9rem 0.9rem 1.1rem;
+  border: 1px solid var(--cor-borda);
+  border-left: 5px solid var(--cor-toast);
+  border-radius: 10px;
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+  animation: toast-entrar 0.3s ease;
+}
+
+.toast--sucesso { --cor-toast: var(--cor-sucesso); }
+.toast--erro { --cor-toast: var(--cor-erro); }
+.toast--info { --cor-toast: var(--cor-primaria); }
+
+.toast__icone {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  background: var(--cor-toast);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.toast__texto { flex: 1; }
+
+.toast__texto p {
+  margin: 0.15rem 0 0;
+  font-size: 0.92rem;
+  color: var(--cor-texto-suave);
+}
+
+.toast__fechar {
+  border: 0;
+  background: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--cor-texto-suave);
+  cursor: pointer;
+}
+
+.toast__fechar:hover { color: var(--cor-texto); }
+
+/* Barrinha que diminui mostrando quanto tempo falta para o toast sumir */
+.toast__tempo {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--cor-toast);
+  opacity: 0.5;
+  animation: toast-tempo 4000ms linear forwards;
+}
+
+/* Como os toasts ficam no topo, eles entram descendo */
+@keyframes toast-entrar {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes toast-tempo {
+  from { width: 100%; }
+  to { width: 0; }
+}

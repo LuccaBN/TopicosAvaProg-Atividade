@@ -1,0 +1,41 @@
+/* Seção <topo> — saudação e busca */
+
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.topo h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); }
+.topo p { margin: 0.25rem 0 0; }
+
+.topo__busca {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 100%;
+  max-width: 360px;
+}
+
+.topo__busca label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+}
+
+.topo__busca input {
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  background: var(--cor-superficie);
+  font: inherit;
+  color: var(--cor-texto);
+}
+
+.topo__busca input:focus {
+  border-color: var(--cor-primaria);
+  outline: 3px solid var(--cor-primaria-clara);
+}

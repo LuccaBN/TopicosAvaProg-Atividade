@@ -1,0 +1,74 @@
+/* Componente <acordeao> */
+
+.acordeao {
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra-leve);
+  overflow: hidden;
+}
+
+.acordeao__item + .acordeao__item {
+  border-top: 1px solid var(--cor-borda);
+}
+
+/* faixa dourada no item aberto */
+.acordeao__item--aberto {
+  box-shadow: inset 4px 0 0 var(--cor-destaque);
+}
+
+.acordeao__cabecalho {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.acordeao__botao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  color: var(--cor-texto);
+  cursor: pointer;
+}
+
+.acordeao__botao:hover { background: var(--cor-fundo); }
+.acordeao__item--aberto .acordeao__botao { color: var(--cor-primaria); }
+
+.acordeao__icone {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  background: var(--cor-primaria-clara);
+  color: var(--cor-primaria-escura);
+  font-size: 1.3rem;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.acordeao__item--aberto .acordeao__icone { transform: rotate(45deg); }
+
+/* Transição de altura: o grid vai de 0fr a 1fr, que anima até a altura real do conteúdo */
+.acordeao__painel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.acordeao__item--aberto .acordeao__painel { grid-template-rows: 1fr; }
+
+.acordeao__conteudo { overflow: hidden; }
+
+.acordeao__conteudo p {
+  margin: 0;
+  padding: 0 1.25rem 1.1rem;
+  color: var(--cor-texto-suave);
+}

@@ -1,0 +1,55 @@
+/* Componente <paginacao> */
+
+.paginacao {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.paginacao__lista {
+  display: flex;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.paginacao__botao {
+  min-width: 2.6rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  background: var(--cor-superficie);
+  color: var(--cor-primaria);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.paginacao__botao:hover:not(:disabled) { background: var(--cor-primaria-clara); }
+
+.paginacao__botao:disabled {
+  color: var(--cor-texto-suave);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.paginacao__numero--atual,
+.paginacao__numero--atual:hover:not(:disabled) {
+  border-color: var(--cor-primaria);
+  background: var(--cor-primaria);
+  color: #fff;
+}
+
+/* No celular os números ficam numa linha e os botões de texto embaixo */
+@media (max-width: 480px) {
+  .paginacao__lista {
+    order: -1;
+    width: 100%;
+    justify-content: center;
+  }
+}

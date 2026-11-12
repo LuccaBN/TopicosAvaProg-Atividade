@@ -1,0 +1,93 @@
+/* Seção <minha-viagem> — checklist e documentos */
+
+.minha-viagem {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+@media (min-width: 900px) {
+  .minha-viagem { grid-template-columns: 2fr 3fr; align-items: start; }
+}
+
+.minha-viagem__painel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.4rem;
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra-leve);
+}
+
+.minha-viagem__painel h3 { font-size: 1.15rem; }
+.minha-viagem__painel p { margin: 0; }
+
+.minha-viagem__cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ---------- Checklist ---------- */
+.minha-viagem__checklist { display: grid; gap: 0.45rem; margin: 0; padding: 0; list-style: none; }
+
+.minha-viagem__checklist label {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  background: var(--cor-fundo);
+  cursor: pointer;
+}
+
+.minha-viagem__checklist input { width: 1.1rem; height: 1.1rem; accent-color: var(--cor-primaria); }
+.minha-viagem__checklist input:checked + span { color: var(--cor-texto-suave); text-decoration: line-through; }
+
+/* ---------- Documentos ---------- */
+.minha-viagem__documentos { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+
+.documento {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 10px;
+}
+
+.documento > .botao { grid-column: 1 / -1; justify-self: end; }
+
+@media (min-width: 640px) {
+  .documento { grid-template-columns: auto 1fr auto; }
+  .documento > .botao { grid-column: auto; }
+}
+
+.documento__icone {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 8px;
+  background: var(--cor-primaria-clara);
+  color: var(--cor-primaria);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.documento__nome {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.6rem;
+  margin-bottom: 0.25rem;
+}
+
+.documento__nome small { color: var(--cor-texto-suave); }
+
+/* Na barra de cada documento, o nome já aparece acima: mostra só o percentual à direita */
+.documento .barra-progresso__rotulo { display: none; }
+.documento .barra-progresso__topo { justify-content: flex-end; margin-bottom: 0.2rem; }

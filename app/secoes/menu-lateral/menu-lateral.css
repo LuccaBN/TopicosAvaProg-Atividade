@@ -1,0 +1,105 @@
+/* Seção <menu-lateral> — no celular é uma barra no topo */
+
+/* a própria tag fica presa no topo ao rolar a página */
+menu-lateral {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.menu-lateral {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--cor-marinho);
+  color: #fff;
+}
+
+.menu-lateral__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.25rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.menu-lateral__logo strong { color: var(--cor-destaque); }
+
+.menu-lateral__nav {
+  order: 3;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.menu-lateral__nav ul {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu-lateral__nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.menu-lateral__nav a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.menu-lateral__nav a span {
+  width: 1.2rem;
+  text-align: center;
+  color: var(--cor-destaque);
+}
+
+/* O menu suspenso do idioma ganha cores escuras aqui dentro */
+.menu-lateral .menu-suspenso__botao {
+  justify-content: space-between;
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.menu-lateral .menu-suspenso__rotulo { color: rgba(255, 255, 255, 0.65); }
+
+/* Desktop: coluna fixa à esquerda, da altura da tela */
+@media (min-width: 992px) {
+  menu-lateral { height: 100vh; }
+
+  .menu-lateral {
+    height: 100%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 2rem;
+    padding: 1.75rem 1.25rem;
+  }
+
+  .menu-lateral__nav { order: 0; overflow: visible; }
+  .menu-lateral__nav ul { flex-direction: column; }
+  .menu-lateral__nav a { padding: 0.7rem 0.9rem; }
+
+  .menu-lateral__idioma { margin-top: auto; }
+  .menu-lateral__idioma .menu-suspenso,
+  .menu-lateral__idioma .menu-suspenso__botao { width: 100%; }
+
+  /* aqui embaixo, a lista abre para cima */
+  .menu-lateral__idioma .menu-suspenso__lista {
+    top: auto;
+    bottom: calc(100% + 0.35rem);
+  }
+}

@@ -1,0 +1,170 @@
+/* Seção <destaque> — destino escolhido */
+
+.destaque {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr); /* impede que as abas alarguem a coluna no celular */
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+}
+
+@media (min-width: 1100px) {
+  .destaque { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+}
+
+/* ---------- Imagem grande com legenda ---------- */
+.destaque__banner {
+  position: relative;
+  min-height: 240px;
+}
+
+.destaque__banner img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.destaque__legenda {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 5rem 1.5rem 1.25rem;
+  background: linear-gradient(rgba(12, 35, 64, 0), rgba(12, 35, 64, 0.75) 45%, rgba(12, 35, 64, 0.95));
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.destaque__legenda h2 {
+  margin-bottom: 0.4rem;
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+}
+
+.destaque__legenda .selo { text-shadow: none; }
+
+/* ---------- Informações (abas) ---------- */
+.destaque__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.destaque__ficha {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.6rem;
+  margin: 1rem 0 0;
+}
+
+.destaque__ficha div {
+  padding: 0.7rem 0.9rem;
+  border-radius: 8px;
+  background: var(--cor-fundo);
+}
+
+.destaque__ficha dt { font-size: 0.75rem; color: var(--cor-texto-suave); }
+.destaque__ficha dd { margin: 0; font-weight: 700; color: var(--cor-primaria-escura); }
+
+/* roteiro como linha do tempo */
+.destaque__roteiro {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 2px solid var(--cor-borda);
+}
+
+.destaque__roteiro li {
+  position: relative;
+  padding: 0.3rem 0 0.3rem 1.1rem;
+}
+
+.destaque__roteiro li::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 0.75rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cor-destaque);
+}
+
+.destaque__roteiro span {
+  margin-right: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+}
+
+.destaque__incluso { display: grid; gap: 0.35rem; margin: 0; padding: 0; list-style: none; }
+.destaque__incluso li { position: relative; padding-left: 1.6rem; }
+.destaque__incluso li::before { content: '✓'; position: absolute; left: 0; color: var(--cor-sucesso); font-weight: 700; }
+
+.destaque__dica {
+  margin: 0;
+  padding: 0.9rem 1.1rem;
+  border-left: 4px solid var(--cor-destaque);
+  border-radius: 8px;
+  background: #fffbeb;
+}
+
+/* ---------- Reserva ---------- */
+.destaque__reserva {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 1rem;
+  margin-top: auto;
+  padding: 1rem;
+  border: 1px dashed var(--cor-destaque);
+  border-radius: 10px;
+  background: #fffbeb;
+}
+
+@media (min-width: 640px) {
+  .destaque__reserva { grid-template-columns: auto 6rem 1fr auto; }
+  .destaque__valor--total { text-align: right; }
+}
+
+.destaque__valor strong {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-size: 1.3rem;
+  color: var(--cor-primaria-escura);
+}
+
+.destaque__valor span {
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+}
+
+.destaque__viajantes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.destaque__viajantes label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+}
+
+.destaque__viajantes input {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  background: var(--cor-superficie);
+  font: inherit;
+  color: var(--cor-texto);
+}
+
+.destaque__viajantes input:focus {
+  border-color: var(--cor-primaria);
+  outline: 3px solid var(--cor-primaria-clara);
+}

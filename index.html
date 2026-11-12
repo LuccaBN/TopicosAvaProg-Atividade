@@ -6,219 +6,41 @@
   <meta name="description" content="Central do Viajante da Rota Livre - aplicação em AngularJS">
   <title>Central do Viajante | Rota Livre</title>
   <link rel="icon" href="img/logo.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/estilo.css">
+
+  <!-- Estilos gerais -->
+  <link rel="stylesheet" href="app/app.css">
+
+  <!-- Estilos dos componentes -->
+  <link rel="stylesheet" href="app/componentes/acordeao/acordeao.css">
+  <link rel="stylesheet" href="app/componentes/paginacao/paginacao.css">
+  <link rel="stylesheet" href="app/componentes/barra-progresso/barra-progresso.css">
+  <link rel="stylesheet" href="app/componentes/abas/abas.css">
+  <link rel="stylesheet" href="app/componentes/menu-suspenso/menu-suspenso.css">
+  <link rel="stylesheet" href="app/componentes/toast/toast.css">
+
+  <!-- Estilos das seções -->
+  <link rel="stylesheet" href="app/secoes/menu-lateral/menu-lateral.css">
+  <link rel="stylesheet" href="app/secoes/topo/topo.css">
+  <link rel="stylesheet" href="app/secoes/destaque/destaque.css">
+  <link rel="stylesheet" href="app/secoes/explorar/explorar.css">
+  <link rel="stylesheet" href="app/secoes/minha-viagem/minha-viagem.css">
+  <link rel="stylesheet" href="app/secoes/ajuda/ajuda.css">
 </head>
 
-<!-- ng-app inicia o módulo principal; ng-controller liga o controlador a toda a página -->
-<body ng-app="rotaLivre" ng-controller="PrincipalController" ng-cloak>
+<!-- ng-app inicia o módulo principal; a página é montada com as seções (diretivas) -->
+<body ng-app="rotaLivre" ng-controller="AppController" ng-cloak>
 
   <a href="#conteudo" class="pular-link">{{t.ui.pularConteudo}}</a>
 
   <div class="app">
-
-    <!-- ========== MENU LATERAL ========== -->
-    <header class="lateral">
-      <a href="#destaque" class="logo">
-        <img src="img/logo.svg" alt="" width="38" height="38">
-        <span>Rota<strong>Livre</strong></span>
-      </a>
-
-      <nav aria-label="{{t.ui.menuPrincipal}}" class="lateral__nav">
-        <ul>
-          <li><a href="#destaque"><span aria-hidden="true">★</span>{{t.ui.menu.destaque}}</a></li>
-          <li><a href="#explorar"><span aria-hidden="true">◎</span>{{t.ui.menu.explorar}}</a></li>
-          <li><a href="#viagem"><span aria-hidden="true">✈</span>{{t.ui.menu.viagem}}</a></li>
-          <li><a href="#ajuda"><span aria-hidden="true">?</span>{{t.ui.menu.ajuda}}</a></li>
-        </ul>
-      </nav>
-
-      <!-- Diretiva: Menu Suspenso (idioma) -->
-      <div class="lateral__idioma">
-        <menu-suspenso rotulo="t.ui.idioma" opcoes="opcoesIdioma" valor-selecionado="idioma"
-                       ao-selecionar="trocarIdioma(opcao)" alinhamento="esquerda"></menu-suspenso>
-      </div>
-    </header>
+    <menu-lateral></menu-lateral>
 
     <main id="conteudo" class="principal">
-
-      <!-- Saudação + busca (ng-model) -->
-      <div class="topo">
-        <div>
-          <h1>{{t.ui.saudacao.titulo}}</h1>
-          <p class="texto-suave">{{t.ui.saudacao.texto}}</p>
-        </div>
-        <div class="busca">
-          <label for="campo-busca">{{t.ui.busca.rotulo}}</label>
-          <input id="campo-busca" type="search" ng-model="filtros.busca" ng-change="aoBuscar()"
-                 placeholder="{{t.ui.busca.placeholder}}" autocomplete="off">
-        </div>
-      </div>
-
-      <!-- ========== DESTINO EM DESTAQUE (Abas) ========== -->
-      <section id="destaque" class="destaque" aria-labelledby="titulo-destaque">
-        <div class="destaque__banner">
-          <img ng-src="{{destaque.imagem}}" alt="{{destaque.alt}}">
-          <div class="destaque__legenda">
-            <p class="sobretitulo">{{t.ui.destaque.sobretitulo}}</p>
-            <h2 id="titulo-destaque">{{destaque.nome}}</h2>
-            <span class="selo selo--{{destaque.regiao}}">{{t.ui.selo[destaque.regiao]}}</span>
-          </div>
-        </div>
-
-        <div class="destaque__info">
-          <!-- Diretivas: Abas (o conteúdo de cada <aba> fica dentro dela) -->
-          <abas rotulo="t.ui.destaque.rotuloAbas(destaque.nome)" reiniciar-quando="destaque.id">
-            <aba titulo="{{t.ui.destaque.abas.visao}}">
-              <p>{{destaque.resumo}}</p>
-              <dl class="ficha">
-                <div><dt>{{t.ui.destaque.ficha.saida}}</dt><dd>{{destaque.saida | dataLocal:t.local}}</dd></div>
-                <div><dt>{{t.ui.destaque.ficha.duracao}}</dt><dd>{{t.ui.item.dias(destaque.dias)}}</dd></div>
-                <div><dt>{{t.ui.destaque.ficha.vagas}}</dt><dd>{{destaque.vagas === 0 ? t.ui.item.esgotado : destaque.vagas}}</dd></div>
-              </dl>
-            </aba>
-            <aba titulo="{{t.ui.destaque.abas.roteiro}}">
-              <ol class="roteiro">
-                <li ng-repeat="dia in destaque.roteiro track by $index">
-                  <span class="roteiro__dia">{{t.ui.destaque.dia($index + 1)}}</span>{{dia}}
-                </li>
-              </ol>
-            </aba>
-            <aba titulo="{{t.ui.destaque.abas.incluso}}">
-              <ul class="lista-check">
-                <li ng-repeat="item in destaque.incluso track by $index">{{item}}</li>
-              </ul>
-            </aba>
-            <aba titulo="{{t.ui.destaque.abas.dicas}}">
-              <p class="dica">💡 {{destaque.dicas}}</p>
-            </aba>
-          </abas>
-
-          <!-- Reserva: viajantes com ng-model, total calculado na hora -->
-          <div class="reserva">
-            <div class="reserva__preco">
-              <strong>{{destaque.preco | moedaLocal:t.local}}</strong>
-              <span>{{t.ui.destaque.porPessoa}}</span>
-            </div>
-            <div class="reserva__viajantes">
-              <label for="campo-viajantes">{{t.ui.destaque.viajantes}}</label>
-              <input id="campo-viajantes" type="number" min="1" max="10" ng-model="viajantes">
-            </div>
-            <div class="reserva__total">
-              <span>{{t.ui.destaque.total}}</span>
-              <strong>{{precoTotal() | moedaLocal:t.local}}</strong>
-            </div>
-            <button type="button" class="botao botao--destaque" ng-click="reservar()">{{t.ui.destaque.reservar}}</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ========== EXPLORAR (Menu Suspenso + Paginação) ========== -->
-      <section id="explorar" class="secao" aria-labelledby="titulo-explorar">
-        <div class="secao__topo">
-          <div>
-            <h2 id="titulo-explorar">{{t.ui.explorar.titulo}}</h2>
-            <p class="texto-suave">{{t.ui.explorar.contagem(destinos.length)}}</p>
-          </div>
-          <div class="filtros">
-            <!-- Diretiva: Menu Suspenso (filtro e ordenação) -->
-            <menu-suspenso rotulo="t.ui.explorar.mostrar" opcoes="opcoesRegiao"
-                           valor-selecionado="filtros.regiao" ao-selecionar="trocarRegiao(opcao)"></menu-suspenso>
-            <menu-suspenso rotulo="t.ui.explorar.ordenar" opcoes="opcoesOrdem"
-                           valor-selecionado="filtros.ordem" ao-selecionar="trocarOrdem(opcao)"
-                           alinhamento="direita"></menu-suspenso>
-          </div>
-        </div>
-
-        <div class="galeria">
-          <!-- filtro "paginar" mostra só os destinos da página atual -->
-          <article class="cartao-destino" ng-repeat="destino in destinos | paginar:paginaAtual:itensPorPagina track by destino.id"
-                   ng-class="{'cartao-destino--destaque': destino.id === idDestaque}">
-            <div class="cartao-destino__imagem">
-              <img ng-src="{{destino.imagem}}" alt="{{destino.alt}}" width="600" height="400">
-              <span class="cartao-destino__preco">{{t.ui.item.aPartirDe}} {{destino.preco | moedaLocal:t.local}}</span>
-              <span class="cartao-destino__marca" ng-if="destino.id === idDestaque">★ {{t.ui.explorar.emDestaque}}</span>
-            </div>
-            <div class="cartao-destino__corpo">
-              <span class="selo selo--{{destino.regiao}}">{{t.ui.selo[destino.regiao]}}</span>
-              <h3>{{destino.nome}}</h3>
-              <p>{{destino.resumo}}</p>
-            </div>
-            <div class="cartao-destino__rodape">
-              <span ng-class="{'texto-erro': destino.vagas === 0}">
-                {{t.ui.item.dias(destino.dias)}} · {{destino.vagas === 0 ? t.ui.item.esgotado : t.ui.item.vagas(destino.vagas)}}
-              </span>
-              <button type="button" class="botao botao--contorno" ng-click="verDestino(destino)"
-                      aria-label="{{t.ui.explorar.verRotulo(destino.nome)}}">{{t.ui.explorar.ver}}</button>
-            </div>
-          </article>
-        </div>
-
-        <p class="lista-vazia" ng-if="destinos.length === 0">{{t.ui.busca.nenhum}}</p>
-
-        <!-- Diretiva: Paginação -->
-        <paginacao total-paginas="totalPaginas" pagina-atual="paginaAtual"
-                   ao-mudar="irParaPagina(pagina)" textos="t.ui.paginacao"></paginacao>
-      </section>
-
-      <!-- ========== MINHA VIAGEM (Barras de Progresso) ========== -->
-      <section id="viagem" class="secao" aria-labelledby="titulo-viagem">
-        <h2 id="titulo-viagem">{{t.ui.viagem.titulo}}</h2>
-        <div class="grade-viagem">
-
-          <div class="painel">
-            <h3>{{t.ui.viagem.checklistTitulo}}</h3>
-            <!-- Diretiva: Barra de Progresso ligada ao checklist -->
-            <barra-progresso valor="progressoChecklist()"
-                             rotulo="t.ui.viagem.checklistProgresso(tarefasFeitas(), checklist.length)"></barra-progresso>
-            <ul class="checklist">
-              <li ng-repeat="item in checklist track by item.id">
-                <label>
-                  <!-- ng-model: marcar o checkbox muda item.feito (e a barra acompanha) -->
-                  <input type="checkbox" ng-model="item.feito" ng-change="aoMarcarItem()">
-                  <span>{{t.ui.viagem.checklist[item.id]}}</span>
-                </label>
-              </li>
-            </ul>
-          </div>
-
-          <div class="painel">
-            <div class="painel__topo">
-              <h3>{{t.ui.viagem.documentosTitulo}}</h3>
-              <button type="button" class="botao botao--primario botao--pequeno" ng-click="enviarTodos()"
-                      ng-disabled="todosEnviados()">{{t.ui.viagem.enviarTodos}}</button>
-            </div>
-            <p class="texto-suave texto-pequeno">{{t.ui.viagem.documentosTexto}}</p>
-
-            <ul class="documentos">
-              <li class="documento" ng-repeat="documento in documentos track by documento.id">
-                <span class="documento__icone" aria-hidden="true">{{documento.arquivo.split('.').pop() | uppercase}}</span>
-                <div class="documento__info">
-                  <div class="documento__nome">
-                    <strong>{{t.ui.viagem.documentos[documento.id]}}</strong>
-                    <small>{{documento.arquivo}} · {{documento.tamanho}}</small>
-                  </div>
-                  <!-- Diretiva: Barra de Progresso (uma por documento) -->
-                  <barra-progresso valor="documento.progresso" rotulo="documento.arquivo" mostrar-percentual="true"></barra-progresso>
-                </div>
-                <button type="button" class="botao botao--suave botao--pequeno" ng-click="enviar(documento)"
-                        ng-disabled="documento.enviando || documento.progresso >= 100">
-                  {{documento.progresso >= 100 ? t.ui.viagem.enviado : (documento.enviando ? t.ui.viagem.enviando : t.ui.viagem.enviar)}}
-                </button>
-              </li>
-            </ul>
-
-            <barra-progresso valor="progressoGeral()" rotulo="t.ui.viagem.totalEnviado"></barra-progresso>
-          </div>
-        </div>
-      </section>
-
-      <!-- ========== AJUDA (Acordeão) ========== -->
-      <section id="ajuda" class="secao" aria-labelledby="titulo-ajuda">
-        <h2 id="titulo-ajuda">{{t.ui.ajuda.titulo}}</h2>
-        <p class="texto-suave">{{t.ui.ajuda.texto}}</p>
-        <!-- Diretiva: Acordeão -->
-        <acordeao itens="t.faq" aberto-inicial="cancelamento"></acordeao>
-      </section>
+      <topo></topo>
+      <destaque></destaque>
+      <explorar></explorar>
+      <minha-viagem></minha-viagem>
+      <ajuda></ajuda>
 
       <footer class="rodape">
         <p>{{t.ui.rodape}}</p>
@@ -226,36 +48,46 @@
     </main>
   </div>
 
-  <!-- Diretiva: Notificações Toast (as mensagens vêm do ToastService) -->
+  <!-- Notificações (as mensagens vêm do ToastService) -->
   <toast-container titulos="t.ui.toast.titulos" rotulo-fechar="t.ui.toast.fechar"></toast-container>
+
+
+  <!-- ========== SCRIPTS ========== -->
 
   <!-- AngularJS (baixado na pasta vendor/) -->
   <script src="vendor/angular.min.js"></script>
 
-  <!-- Módulo principal -->
-  <script src="js/app.js"></script>
+  <!-- Módulos (precisa vir antes de tudo) -->
+  <script src="app/app.module.js"></script>
 
-  <!-- Dados -->
-  <script src="js/dados/destinos.js"></script>
-  <script src="js/dados/traducoes.js"></script>
+  <!-- Compartilhado: textos, dados, serviços e filtros -->
+  <script src="app/compartilhado/traducao/idiomas/pt.js"></script>
+  <script src="app/compartilhado/traducao/idiomas/en.js"></script>
+  <script src="app/compartilhado/traducao/idiomas/es.js"></script>
+  <script src="app/compartilhado/traducao/traducao.service.js"></script>
+  <script src="app/compartilhado/destinos/destinos.data.js"></script>
+  <script src="app/compartilhado/destinos/destinos.service.js"></script>
+  <script src="app/compartilhado/filtros/filtros.js"></script>
 
-  <!-- Serviços e factories -->
-  <script src="js/servicos/traducaoService.js"></script>
-  <script src="js/servicos/destinosService.js"></script>
-  <script src="js/servicos/toastService.js"></script>
+  <!-- Componentes (os 6 pedidos na atividade) -->
+  <script src="app/componentes/acordeao/acordeao.directive.js"></script>
+  <script src="app/componentes/paginacao/paginacao.directive.js"></script>
+  <script src="app/componentes/barra-progresso/barra-progresso.directive.js"></script>
+  <script src="app/componentes/abas/abas.directive.js"></script>
+  <script src="app/componentes/menu-suspenso/menu-suspenso.directive.js"></script>
+  <script src="app/componentes/toast/toast.service.js"></script>
+  <script src="app/componentes/toast/toast.directive.js"></script>
 
-  <!-- Filtros -->
-  <script src="js/filtros/filtros.js"></script>
+  <!-- Seções da página -->
+  <script src="app/secoes/menu-lateral/menu-lateral.directive.js"></script>
+  <script src="app/secoes/topo/topo.directive.js"></script>
+  <script src="app/secoes/destaque/destaque.directive.js"></script>
+  <script src="app/secoes/explorar/explorar.directive.js"></script>
+  <script src="app/secoes/minha-viagem/minha-viagem.data.js"></script>
+  <script src="app/secoes/minha-viagem/minha-viagem.directive.js"></script>
+  <script src="app/secoes/ajuda/ajuda.directive.js"></script>
 
-  <!-- Diretivas (os 6 componentes) -->
-  <script src="js/diretivas/accordion.js"></script>
-  <script src="js/diretivas/paginacao.js"></script>
-  <script src="js/diretivas/barraProgresso.js"></script>
-  <script src="js/diretivas/abas.js"></script>
-  <script src="js/diretivas/menuSuspenso.js"></script>
-  <script src="js/diretivas/toast.js"></script>
-
-  <!-- Controlador -->
-  <script src="js/controladores/principalController.js"></script>
+  <!-- Controlador da página -->
+  <script src="app/app.controller.js"></script>
 </body>
 </html>

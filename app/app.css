@@ -1,0 +1,187 @@
+/* ==========================================================
+   Estilos gerais da aplicação
+   (cores, tipografia, botões e a estrutura da página).
+   Cada componente e cada seção têm o seu próprio arquivo .css.
+   ========================================================== */
+
+/* Esconde as {{ }} até o AngularJS terminar de carregar */
+[ng-cloak] { display: none !important; }
+.ng-hide:not(.ng-hide-animate) { display: none !important; } /* usado por ng-show / ng-hide */
+
+/* ---------- Variáveis do tema: azul-marinho + dourado ---------- */
+:root {
+  --cor-primaria: #1d4e89;
+  --cor-primaria-escura: #12355f;
+  --cor-primaria-clara: #e3edf9;
+  --cor-destaque: #d99a06;
+  --cor-destaque-escura: #b47f00;
+  --cor-sucesso: #15803d;
+  --cor-erro: #c62828;
+  --cor-texto: #0f1f33;
+  --cor-texto-suave: #5b6b80;
+  --cor-fundo: #eef2f7;
+  --cor-superficie: #ffffff;
+  --cor-borda: #dce3ed;
+  --cor-marinho: #0c2340;
+  --raio: 12px;
+  --sombra: 0 10px 28px rgba(12, 35, 64, 0.12);
+  --sombra-leve: 0 2px 8px rgba(12, 35, 64, 0.06);
+  --fonte-titulo: Georgia, 'Times New Roman', serif;
+  --largura-lateral: 250px;
+
+  font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+  line-height: 1.55;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 1rem; }
+body { margin: 0; }
+img { max-width: 100%; }
+
+h1, h2, h3 {
+  margin: 0;
+  line-height: 1.2;
+  font-family: var(--fonte-titulo);
+}
+
+:focus-visible {
+  outline: 3px solid var(--cor-destaque);
+  outline-offset: 2px;
+}
+
+/* ---------- Utilitários ---------- */
+.texto-suave { color: var(--cor-texto-suave); }
+.texto-pequeno { font-size: 0.9rem; }
+.texto-erro { color: var(--cor-erro) !important; font-weight: 600; }
+
+.sobretitulo {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cor-destaque);
+}
+
+.pular-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 300;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: var(--cor-destaque);
+  color: var(--cor-marinho);
+  font-weight: 600;
+}
+
+.pular-link:focus { top: 1rem; }
+
+/* ---------- Botões ---------- */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, opacity 0.2s, transform 0.1s;
+}
+
+.botao:active:not(:disabled) { transform: scale(0.97); }
+.botao:disabled { opacity: 0.55; cursor: not-allowed; }
+.botao--pequeno { padding: 0.4rem 0.8rem; font-size: 0.88rem; }
+
+.botao--primario { background: var(--cor-primaria); color: #fff; }
+.botao--primario:hover:not(:disabled) { background: var(--cor-primaria-escura); }
+
+.botao--destaque { background: var(--cor-destaque); color: var(--cor-marinho); }
+.botao--destaque:hover:not(:disabled) { background: #f0b31a; }
+
+.botao--suave { background: var(--cor-primaria-clara); color: var(--cor-primaria-escura); }
+.botao--suave:hover:not(:disabled) { background: #cddcf0; }
+
+.botao--contorno { border-color: var(--cor-primaria); background: none; color: var(--cor-primaria); }
+.botao--contorno:hover { background: var(--cor-primaria); color: #fff; }
+
+/* ---------- Selos (Nacional / Internacional) ---------- */
+.selo {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.selo--nacional { background: #dcfce7; color: var(--cor-sucesso); }
+.selo--internacional { background: #fef3c7; color: var(--cor-destaque-escura); }
+
+/* ---------- Estrutura da página ---------- */
+.app { min-height: 100vh; }
+
+.principal {
+  width: min(1180px, 100%);
+  margin-inline: auto;
+  padding: 1.5rem 1rem 0;
+}
+
+/* Desktop: menu lateral à esquerda e conteúdo à direita */
+@media (min-width: 992px) {
+  .app {
+    display: grid;
+    grid-template-columns: var(--largura-lateral) minmax(0, 1fr);
+  }
+
+  .principal { padding: 2rem 2.5rem 0; }
+}
+
+/* As diretivas das seções viram blocos (tags novas começam como "inline") */
+menu-lateral, topo, destaque, explorar, minha-viagem, ajuda { display: block; }
+
+/* ---------- Seções (padrão usado por várias) ---------- */
+.secao { padding: 2.5rem 0 0; }
+
+.secao h2 { font-size: clamp(1.4rem, 3vw, 1.8rem); }
+
+.secao__topo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.secao__topo p { margin: 0.2rem 0 0; }
+
+/* ---------- Rodapé ---------- */
+.rodape {
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--cor-borda);
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+
+.rodape p { margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
